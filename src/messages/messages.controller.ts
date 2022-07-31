@@ -1,23 +1,28 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { CreateMessageDto } from './dtos/create-message.dto';
+import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
-  @Get()
-  listMessages() {}
+  messagesService: MessagesService;
 
-  // Passagem do objeto DTO como parâmetro de createMessage
-  // para ser usado como critério da pipe.
-  // O pacote class-transformer pega um objeto simples ou literal (referindo a
-  // classe Object do Javascript) e transforma em uma classe com construtor,
-  // propriedades e métodos próprios. (chamado tb de objetos de classe).
-  // A seguir, o corpo é transformado em uma instância da classe DTO:
+  constructor() {
+    // A Service está criando as suas próprias dependências.
+    // Não fazer isso em APPs reais! Use Dependency Injection!
+    this.messagesService = new MessagesService();
+  }
+
+  @Get()
+  listMessages() {
+    return this.messagesService.findAll();
+  }
+
   @Post()
   createMessage(@Body() body: CreateMessageDto) {
-    console.log(body);
+    return this.messagesService.create(body.content)
   }
   @Get('/:id')
   getMessage(@Param('id') id: string) {
-    console.log(id);
+    return this.messagesService.findOne(id)
   }
 }

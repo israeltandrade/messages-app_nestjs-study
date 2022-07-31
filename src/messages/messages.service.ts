@@ -6,7 +6,7 @@ messagesRepo: MessagesRepository;
 
   constructor() {
     // A Service está criando as suas próprias dependências.
-    // Não fazer isso em APPs reais!
+    // Não fazer isso em APPs reais! Use Dependency Injection!
     this.messagesRepo = new MessagesRepository();
   }
 
@@ -14,7 +14,7 @@ messagesRepo: MessagesRepository;
     return this.messagesRepo.findOne(id);
   }
 
-  indAll() {
+  findAll() {
     return this.messagesRepo.findAll();
   }
 

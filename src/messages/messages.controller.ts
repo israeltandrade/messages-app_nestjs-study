@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, NotFoundException } from '@nestjs/common';
 import { CreateMessageDto } from './dtos/create-message.dto';
 import { MessagesService } from './messages.service';
 
@@ -22,7 +22,17 @@ export class MessagesController {
     return this.messagesService.create(body.content)
   }
   @Get('/:id')
-  getMessage(@Param('id') id: string) {
-    return this.messagesService.findOne(id)
+  // Expecificando o método getMessage como assíncrono e transformando
+  // o retorno numa passagem para uma constante, podemos utilizar o esquema
+  // de promise (com await) e assim passar Exception Errors, como o
+  // NotFoundException a seguir e depois disso retornar o valor.
+  async getMessage(@Param('id') id: string) {
+    const message = await this.messagesService.findOne(id);
+
+    if (!message) {
+      throw new NotFoundException('message not found');
+    }
+
+    return message;
   }
 }

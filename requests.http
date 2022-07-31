@@ -13,4 +13,4 @@ content-type: application/json
 }
 
 ### Get a particular message
-GET http://localhost:3003/messages/435
+GET http://localhost:3003/messages/431235

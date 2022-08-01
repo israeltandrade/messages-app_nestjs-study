@@ -1,14 +1,16 @@
-import { ShutdownSignal } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { MessagesRepository } from "./messages.repository";
 
+@Injectable()
 export class MessagesService {
-messagesRepo: MessagesRepository;
+  // Maneira completa de escrever:
+  // messagesRepo: MessagesRepository;
 
-  constructor() {
-    // A Service está criando as suas próprias dependências.
-    // Não fazer isso em APPs reais! Use Dependency Injection!
-    this.messagesRepo = new MessagesRepository();
-  }
+  // constructor(messagesRepo: MessagesRepository) {
+  //   this.messagesRepo = messagesRepo;
+  // }
+  // Maneira resumida (dispensa declaração):
+  constructor(public messagesRepo: MessagesRepository) {}
 
   findOne(id: string) {
     return this.messagesRepo.findOne(id);

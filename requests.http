@@ -9,8 +9,8 @@ content-type: application/json
 # O validador do DTO vai avaliar o corpo a seguir.
 # Experimentar usar valores inválidos no POST:
 {
-  "content": "second message."
+  "content": "message after adding DI."
 }
 
 ### Get a particular message
-GET http://localhost:3003/messages/431235
+GET http://localhost:3003/messages/168

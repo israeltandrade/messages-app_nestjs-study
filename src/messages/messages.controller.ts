@@ -4,13 +4,14 @@ import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
-  messagesService: MessagesService;
+  // Maneira completa de escrever:
+  // messagesService: MessagesService;
 
-  constructor() {
-    // A Service está criando as suas próprias dependências.
-    // Não fazer isso em APPs reais! Use Dependency Injection!
-    this.messagesService = new MessagesService();
-  }
+  // constructor(messagesService: MessagesService) {
+  //   this.messagesService = messagesService;
+  // }
+  // Maneira resumida (dispensa declaração):
+  constructor(public messagesService: MessagesService) {}
 
   @Get()
   listMessages() {
